@@ -2,6 +2,30 @@ import { Schema, model, ObjectId, Error } from 'mongoose'
 import validator from 'validator'
 import bcrypt from 'bcrypt'
 
+const productSchema = new Schema({
+  p_id: {
+    type: ObjectId,
+    ref: 'products',
+    required: [true, '缺少商品']
+  },
+  Quantity: {
+    type: Number,
+    required: [true, '缺少數量']
+  }
+})
+
+const seatSchema = new Schema({
+  s_id: {
+    type: ObjectId,
+    ref: 'seats',
+    required: [true, '缺少座位']
+  },
+  Quantity: {
+    type: Number,
+    required: [true, '缺少數量']
+  }
+})
+
 // 資料庫欄位設定
 const schema = new Schema(
   {
@@ -45,24 +69,49 @@ const schema = new Schema(
         message: '信箱格式錯誤'
       }
     },
+    name: {
+      type: String,
+      default: []
+    },
+    phone: {
+      type: Number,
+      default: []
+    },
+    address: {
+      type: String,
+      default: []
+    },
+    gender: {
+      type: Number,
+      // 0 = 男
+      // 1 = 女
+      default: 0
+    },
+    age: {
+      type: Number,
+      min: [0, '必須大於 0 歲'],
+      max: [110, '請輸入有效年齡'],
+      default: []
+    },
+    creitcard: {
+      type: String,
+      validate: {
+        validator (creitcard) {
+          return validator.isCreditCard(creitcard)
+        },
+        message: '信用卡號格式錯誤'
+      }
+    },
     tokens: {
       type: [String],
       default: []
     },
-    cart: {
-      type: [
-        {
-          product: {
-            type: ObjectId,
-            ref: 'products',
-            required: [true, '缺少商品']
-          },
-          quantity: {
-            type: Number,
-            required: [true, '缺少數量']
-          }
-        }
-      ],
+    CartProduct: {
+      type: [productSchema],
+      default: []
+    },
+    CartSeat: {
+      type: [seatSchema],
       default: []
     },
     role: {
@@ -76,9 +125,7 @@ const schema = new Schema(
 schema.pre('save', function (next) {
   const user = this
   if (user.isModified('password')) {
-    if (user.password.length >= 4 && user.password.length <= 20) {
-      user.password = bcrypt.hashSync(user.password, 10)
-    } else if (user.password.length < 4) {
+    if (user.password.length < 4) {
       const error = new Error.ValidationError(null)
       error.addError('password', new Error.ValidatorError({ message: '密碼長度過短' }))
       next(error)
@@ -88,6 +135,8 @@ schema.pre('save', function (next) {
       error.addError('password', new Error.ValidatorError({ message: '密碼長度過長' }))
       next(error)
       return
+    } else {
+      user.password = bcrypt.hashSync(user.password, 10)
     }
   }
   next()
@@ -96,9 +145,7 @@ schema.pre('save', function (next) {
 schema.pre('findOneAndUpdate', function (next) {
   const user = this._update
   if (user.isModified('password')) {
-    if (user.password.length >= 4 && user.password.length <= 20) {
-      user.password = bcrypt.hashSync(user.password, 10)
-    } else if (user.password.length < 4) {
+    if (user.password.length < 4) {
       const error = new Error.ValidationError(null)
       error.addError('password', new Error.ValidatorError({ message: '密碼長度過短' }))
       next(error)
@@ -108,6 +155,8 @@ schema.pre('findOneAndUpdate', function (next) {
       error.addError('password', new Error.ValidatorError({ message: '密碼長度過長' }))
       next(error)
       return
+    } else {
+      user.password = bcrypt.hashSync(user.password, 10)
     }
   }
   next()
