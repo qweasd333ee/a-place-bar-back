@@ -71,15 +71,15 @@ const schema = new Schema(
     },
     name: {
       type: String,
-      default: []
+      default: ''
     },
     phone: {
-      type: Number,
-      default: []
+      type: String,
+      default: ''
     },
     address: {
       type: String,
-      default: []
+      default: ''
     },
     gender: {
       type: Number,
@@ -91,7 +91,7 @@ const schema = new Schema(
       type: Number,
       min: [0, '必須大於 0 歲'],
       max: [110, '請輸入有效年齡'],
-      default: []
+      default: 0
     },
     creitcard: {
       type: String,

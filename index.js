@@ -3,6 +3,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import userRoute from './routes/users.js'
+import './passport/passport.js'
 
 // 連線資料庫
 mongoose.connect(process.env.DB_URL)
