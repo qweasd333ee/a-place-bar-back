@@ -34,7 +34,7 @@ export const login = async (req, res) => {
         token,
         account: req.user.account,
         email: req.user.email,
-        CartProduct: req.user.CartProduct,
+        CartProduct: req.user.CartProduct.reduce((total, current) => total + current.quantity, 0),
         role: req.user.role
       }
     })
@@ -76,7 +76,7 @@ export const getUser = (req, res) => {
       result: {
         account: req.user.account,
         email: req.user.email,
-        cart: req.user.cart,
+        CartProduct: req.user.CartProduct.length,
         role: req.user.role
       }
     })
