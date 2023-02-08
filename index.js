@@ -3,6 +3,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import userRoute from './routes/users.js'
+import productRoute from './routes/products.js'
 import './passport/passport.js'
 
 // 連線資料庫
@@ -42,6 +43,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', userRoute)
+app.use('/products', productRoute)
 
 app.all('*', (req, res) => {
   res.status(404).json({ success: false, message: '找不到' })
