@@ -8,7 +8,7 @@ const productSchema = new Schema({
     ref: 'products',
     required: [true, '缺少商品']
   },
-  Quantity: {
+  quantity: {
     type: Number,
     required: [true, '缺少數量']
   }
@@ -20,7 +20,7 @@ const seatSchema = new Schema({
     ref: 'seats',
     required: [true, '缺少座位']
   },
-  Quantity: {
+  quantity: {
     type: Number,
     required: [true, '缺少數量']
   }

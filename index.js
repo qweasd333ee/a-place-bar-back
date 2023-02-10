@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import userRoute from './routes/users.js'
 import productRoute from './routes/products.js'
+import orderRoute from './routes/orders.js'
 import './passport/passport.js'
 
 // 連線資料庫
@@ -38,12 +39,14 @@ app.use((_, req, res, next) => {
   res.status(400).json({ success: false, message: '格式錯誤' })
 })
 
+app.use('/users', userRoute)
+app.use('/products', productRoute)
+app.use('/orders', orderRoute)
+
+// 固定回傳 200 部屬至 render
 app.get('/', (req, res) => {
   res.status(200).json({ success: true, message: '' })
 })
-
-app.use('/users', userRoute)
-app.use('/products', productRoute)
 
 app.all('*', (req, res) => {
   res.status(404).json({ success: false, message: '找不到' })

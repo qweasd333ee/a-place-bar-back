@@ -6,7 +6,7 @@ const orderSchema = new Schema({
     ref: 'products',
     required: [true, '缺少商品']
   },
-  Quantity: {
+  quantity: {
     type: Number,
     required: [true, '缺少數量']
   }

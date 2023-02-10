@@ -6,7 +6,7 @@ const bookingSchema = new Schema({
     ref: 'seats',
     required: [true, '缺少座位']
   },
-  Quantity: {
+  quantity: {
     type: Number,
     required: [true, '缺少人數']
   }
