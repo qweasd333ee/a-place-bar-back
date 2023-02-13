@@ -5,6 +5,7 @@ import cors from 'cors'
 import userRoute from './routes/users.js'
 import productRoute from './routes/products.js'
 import orderRoute from './routes/orders.js'
+import seatRoute from './routes/seats.js'
 import './passport/passport.js'
 
 // 連線資料庫
@@ -42,6 +43,7 @@ app.use((_, req, res, next) => {
 app.use('/users', userRoute)
 app.use('/products', productRoute)
 app.use('/orders', orderRoute)
+app.use('/seats', seatRoute)
 
 // 固定回傳 200 部屬至 render
 app.get('/', (req, res) => {

@@ -2,20 +2,23 @@ import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
   name: {
-    type: Number,
+    type: String,
     required: [true, '缺少座位編號']
   },
   floor: {
     type: String,
     required: [true, '缺少座位樓層']
   },
-  seat: {
+  seatNumber: {
     type: Number,
     required: [true, '缺少座位數量']
   },
   using: {
+    type: Boolean
+  },
+  book: {
     type: Boolean,
-    required: [true, '缺少座位狀態']
+    required: [true, '缺少是否開放訂位']
   },
   category: {
     type: String,
