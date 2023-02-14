@@ -6,6 +6,7 @@ export const createSeat = async (req, res) => {
       name: req.body.name,
       floor: req.body.floor,
       seatNumber: req.body.seatNumber,
+      image: req.file?.path || '',
       using: req.body.using,
       book: req.body.book,
       category: req.body.category
@@ -64,6 +65,7 @@ export const editSeat = async (req, res) => {
         name: req.body.name,
         floor: req.body.floor,
         seatNumber: req.body.seatNumber,
+        image: req.file?.path,
         using: req.body.using,
         book: req.body.book,
         category: req.body.category
