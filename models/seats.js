@@ -13,10 +13,6 @@ const schema = new Schema({
     type: Number,
     required: [true, '缺少座位數量']
   },
-  image: {
-    type: String,
-    required: [true, '缺少樓層圖']
-  },
   using: {
     type: Boolean
   },

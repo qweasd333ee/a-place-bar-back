@@ -6,7 +6,6 @@ export const createSeat = async (req, res) => {
       name: req.body.name,
       floor: req.body.floor,
       seatNumber: req.body.seatNumber,
-      image: req.file?.path || '',
       using: req.body.using,
       book: req.body.book,
       category: req.body.category
@@ -21,10 +20,9 @@ export const createSeat = async (req, res) => {
   }
 }
 
-export const getUsingSeats = async (req, res) => {
+export const getBookSeats = async (req, res) => {
   try {
     const result = await seats.find({ book: true })
-    console.log(result)
     res.status(200).json({ success: true, message: '', result })
   } catch (error) {
     res.status(500).json({ success: false, message: '未知錯誤' })
@@ -59,19 +57,14 @@ export const getSeat = async (req, res) => {
 
 export const editSeat = async (req, res) => {
   try {
-    const result = await seats.findByIdAndUpdate(
-      req.params.id,
-      {
-        name: req.body.name,
-        floor: req.body.floor,
-        seatNumber: req.body.seatNumber,
-        image: req.file?.path,
-        using: req.body.using,
-        book: req.body.book,
-        category: req.body.category
-      },
-      { new: true }
-    )
+    const result = await seats.findByIdAndUpdate(req.params.id, {
+      name: req.body.name,
+      floor: req.body.floor,
+      seatNumber: req.body.seatNumber,
+      using: req.body.using,
+      book: req.body.book,
+      category: req.body.category
+    }, { new: true })
     if (!result) {
       res.status(404).json({ success: false, message: '找不到' })
     } else {
