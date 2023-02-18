@@ -89,6 +89,24 @@ export const getUser = (req, res) => {
   }
 }
 
+export const getAllUser = async (req, res) => {
+  try {
+    const result = await users.find()
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '未知錯誤' })
+  }
+}
+
+export const deleteUser = async (req, res) => {
+  try {
+    await users.findByIdAndDelete(req.params.id)
+    res.status(200).send({ success: true, message: '' })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '未知錯誤' })
+  }
+}
+
 // 新增、修改商品購物車 ------------------------------------------------------------------------------------------
 export const editCartProduct = async (req, res) => {
   try {
