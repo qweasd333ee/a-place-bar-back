@@ -14,7 +14,7 @@ export const createBooking = async (req, res) => {
       return CartSeat.s_id.book
     })
     if (!canCheckout) {
-      res.status(400).json({ success: false, message: '包含下架商品' })
+      res.status(400).json({ success: false, message: '包含不開放座位' })
       return
     }
     // 建立訂單
