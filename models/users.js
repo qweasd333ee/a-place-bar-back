@@ -22,7 +22,23 @@ const seatSchema = new Schema({
   },
   quantity: {
     type: Number,
-    required: [true, '缺少數量']
+    required: [true, '缺少訂位人數']
+  },
+  date: {
+    type: Date,
+    required: [true, '缺少訂位日期、時間']
+  },
+  name: {
+    type: String,
+    require: [true, '缺少姓名']
+  },
+  phone: {
+    type: String,
+    required: [true, '缺少電話']
+  },
+  email: {
+    type: String,
+    required: [true, '缺少信箱']
   }
 })
 
@@ -82,10 +98,8 @@ const schema = new Schema(
       default: ''
     },
     gender: {
-      type: Number,
-      // 0 = 男
-      // 1 = 女
-      default: 0
+      type: String,
+      default: ''
     },
     age: {
       type: Number,
@@ -144,7 +158,7 @@ schema.pre('save', function (next) {
 
 schema.pre('findOneAndUpdate', function (next) {
   const user = this._update
-  if (user.isModified('password')) {
+  if (user.password) {
     if (user.password.length < 4) {
       const error = new Error.ValidationError(null)
       error.addError('password', new Error.ValidatorError({ message: '密碼長度過短' }))
