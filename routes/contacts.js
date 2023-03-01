@@ -7,7 +7,7 @@ import { getAllContacts, createContact } from '../controllers/contacts.js'
 
 const router = Router()
 
-router.post('/', content('multipart/form-data'), jwt, admin, upload, createContact)
+router.post('/', content('multipart/form-data'), jwt, upload, createContact)
 router.get('/all', jwt, admin, getAllContacts)
 
 export default router
