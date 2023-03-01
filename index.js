@@ -7,6 +7,7 @@ import productRoute from './routes/products.js'
 import orderRoute from './routes/orders.js'
 import seatRoute from './routes/seats.js'
 import bookRoute from './routes/bookings.js'
+import contactRoute from './routes/contacts.js'
 import './passport/passport.js'
 
 // 連線資料庫
@@ -46,6 +47,7 @@ app.use('/products', productRoute)
 app.use('/orders', orderRoute)
 app.use('/seats', seatRoute)
 app.use('/bookings', bookRoute)
+app.use('/contacts', contactRoute)
 
 // 固定回傳 200 部屬至 render
 app.get('/', (req, res) => {
